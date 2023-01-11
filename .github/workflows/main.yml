@@ -13,24 +13,35 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} - ${{ matrix.python }}
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
         # Test all supported versions on Ubuntu:
         os: [ubuntu-latest]
         python: ["3.7", "3.8", "3.9", "3.10", 3.11-dev, 3.12-dev]
+        experimental: [false]
         include:
           # Also test PyPy, macOS, and Windows:
           - os: ubuntu-latest
             python: pypy-3.9
+            experimental: false
           - os: ubuntu-latest
             python: pypy-3.8
+            experimental: false
           - os: ubuntu-latest
             python: pypy-3.7
+            experimental: false
           - os: macos-latest
             python: "3.10"
+            experimental: false
           - os: windows-latest
             python: "3.10"
+            experimental: false
+          # Set 3.12-dev to experimental pending https://github.com/python-greenlet/greenlet/issues/323
+          - os: ubuntu-latest
+            python: 3.12-dev
+            experimental: true
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python }}
