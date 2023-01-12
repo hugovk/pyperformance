@@ -13,6 +13,7 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} - ${{ matrix.python }}
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
@@ -54,4 +55,3 @@ jobs:
       run: python -c "import sys; print(sys.version)"
     - name: Run Tests
       run: python -u -m pyperformance.tests
-      continue-on-error: ${{ matrix.experimental }}
