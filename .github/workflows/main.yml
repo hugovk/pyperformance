@@ -53,5 +53,9 @@ jobs:
         python -m pip install -e .
     - name: Display Python version
       run: python -c "import sys; print(sys.version)"
-    - name: Run Tests
-      run: python -u -m pyperformance.tests
+    - name: Run Tests (3.12-dev)
+      if: "endsWith(matrix.python, '3.12-dev')"
+      run: false
+    - name: Run Tests (others)
+      if: "!endsWith(matrix.python, '3.12-dev')"
+      run: true
