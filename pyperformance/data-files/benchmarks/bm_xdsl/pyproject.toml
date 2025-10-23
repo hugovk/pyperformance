@@ -1,6 +1,6 @@
 [project]
 name = "pyperformance_bm_xdsl"
-requires-python = ">=3.10"
+requires-python = ">=3.10, <3.14"
 dependencies = ["pyperf", "xdsl==0.46.0"]
 urls = {repository = "https://github.com/python/pyperformance"}
 dynamic = ["version"]
